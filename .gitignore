@@ -5,6 +5,7 @@
 
 #VSCode Files
 .VSCode
+*.code-workspace
 
 # User-specific files
 *.rsuser
