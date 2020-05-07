@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Day6_Cousins_In_Binary_Tree
+namespace Day7_Cousins_In_Binary_Tree
 {
     class Program
     {
