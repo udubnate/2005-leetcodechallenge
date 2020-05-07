@@ -23,70 +23,43 @@ namespace Day6_Cousins_In_Binary_Tree
         }
     }
 
-    public class Solution
+
+// really like how easy to read this C# solution is - https://leetcode.com/problems/cousins-in-binary-tree/discuss/243807/Easy-C-Solution
+public class Solution
+{
+    TreeNode p1;
+    TreeNode p2;
+    int l1;
+    int l2;
+    public bool IsCousins(TreeNode root, int x, int y) 
     {
-        public bool IsCousins(TreeNode root, int x, int y)
-        {
-            TreeNode parentx = getParent(root, x);
-            TreeNode parenty = getParent(root, y);
-            if (parentx == parenty) return false;
-
-            int levelx = getLevel(root, x, 1);
-            int levely = getLevel(root, y, 1);
-
-            return levelx == levely ? true : false;
-
-        }
-
-        public int getLevel(TreeNode root, int elem, int level){
-            
-            if (root == null){
-                return 0;
-            }
-            if (root.val == elem) {
-                return level;
-            }
-             int downlevel = getLevel(root.left, elem, level + 1);
-             if (downlevel != 0){
-                 return downlevel;
-             }
-
-             downlevel = getLevel(root.right, elem, level + 1);
-             
-             return downlevel;
-           
-            
-        }
-
-        TreeNode getParent(TreeNode root, int n){
-            if (root.left == null && root.right == null){
-                return null;
-            }
-
-            if (root.right != null){
-                if (root.right.val == n){
-                    return root;
-                }
-            }
-
-            if (root.left != null){
-                if (root.left.val == n){
-                    return root;
-                }
-            }
-
-            if (root.left != null){
-                TreeNode leftnode = getParent(root.left, n);
-                if (leftnode != null){
-                    return leftnode;
-                }
-            }
-
-            return getParent(root.right, n);
-        }
-
+        if (root == null || root.val == x || root.val == y) return false;
         
+        Find(root.left, root, 0, x, y);
+        Find (root.right, root, 0, x, y);
+        
+        return (l1 == l2) && (p1.val != p2.val);
     }
+    
+    public void Find(TreeNode root, TreeNode parent, int level, int x, int y)
+    {
+        if (root == null) return;
+        
+        if (root.val == x)
+        {
+            p1 = parent;
+            l1 = level;
+        }
+        else if (root.val == y)
+        {
+            p2 = parent;
+            l2 = level;
+        }
+        
+        Find(root.left, root, level + 1, x, y);
+        Find(root.right, root, level + 1, x, y);
+    }
+}
 
 
     public class TreeNode
