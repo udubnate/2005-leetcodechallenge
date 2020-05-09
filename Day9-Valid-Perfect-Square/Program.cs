@@ -25,23 +25,24 @@ namespace Day9_Valid_Perfect_Square
 
         }
     }
-
+    // simple binary search
+    // O(log n)
+    
     public class Solution
     {
         public bool IsPerfectSquare(int num)
         {
-            for (int i = 1; i <= num; i++)
-            {
-                double eval = (double)num / i;
-                if (eval == i)
-                {
-                    return true;
-                }
-                //trying to speed things up a bit
-                if (i > (num / 2)) break;
-
-            }
-            return false;
+         if (num < 1) return false;
+         long low = 0;
+         long high = num;
+         while (low <= high){
+             long mid = (low + high) / 2 ;
+             long square = mid * mid;
+             if (square == num) return true;
+             if (square < num) low = mid + 1;
+             else high = mid - 1;
+         }  
+         return false;
         }
     }
 }
